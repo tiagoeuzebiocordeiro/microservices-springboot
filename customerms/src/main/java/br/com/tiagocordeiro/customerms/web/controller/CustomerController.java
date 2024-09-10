@@ -4,6 +4,7 @@ import br.com.tiagocordeiro.customerms.domain.Customer;
 import br.com.tiagocordeiro.customerms.domain.dto.CustomerDTO;
 import br.com.tiagocordeiro.customerms.service.CustomerService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("customers")
 @RequiredArgsConstructor
+@Slf4j
 public class CustomerController {
 
     private final CustomerService service;
@@ -34,6 +36,7 @@ public class CustomerController {
 
     @GetMapping(params = "cpf")
     public ResponseEntity<Customer> getByCpf(@RequestParam("cpf") String cpf) {
+        log.info("GET REQUEST ::: ");
         Optional<Customer> customer = service.findByCpf(cpf);
         if (customer.isEmpty()) {
             return ResponseEntity.notFound().build();
